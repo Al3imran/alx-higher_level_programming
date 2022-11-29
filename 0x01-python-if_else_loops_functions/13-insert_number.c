@@ -1,42 +1,24 @@
-#include "lists.h"
+#ifndef LISTS_H
+#define LISTS_H
 
+#include <stdlib.h>
 /**
- * insert_node - inserts a number into a sorted singly linked list.
- * @head: list head
- * @number: number to store in the new node
- * Return: pointer to the new node
+ * struct listint_s - singly linked list
+ * @n: integer
+ * @next: points to the next node
+ *
+ * Description: singly linked list node structure
  */
-listint_t *insert_node(listint_t **head, int number)
+typedef struct listint_s
 {
-        listint_t *runner;
-        listint_t *new;
+    int n;
+    struct listint_s *next;
+} listint_t;
 
-        runner = *head;
+size_t print_listint(const listint_t *h);
+listint_t *add_nodeint_end(listint_t **head, const int n);
+void free_listint(listint_t *head);
 
-        new = malloc(sizeof(listint_t));
-        if (new == NULL)
-                return (NULL);
-        new->n = number;
+listint_t *insert_node(listint_t **head, int number);
 
-        if (*head == NULL || (*head)->n > number)
-        {
-                new->next = *head;
-                *head = new;
-                return (new);
-        }
-
-        while (runner->next != NULL)
-        {
-                if ((runner->next)->n >= number)
-                {
-                        new->next = runner->next;
-                        runner->next = new;
-                        return (new);
-                }
-                runner = runner->next;
-        }
-
-        new->next = NULL;
-        runner->next = new;
-        return (new);
-}
+#endif /* LISTS_H */
